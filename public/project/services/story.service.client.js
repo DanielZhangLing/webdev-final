@@ -60,7 +60,7 @@
         }
 
         function dislikeStory(storyId, userId) {
-            return $http.put('/api/user/dislike',
+            return $http.put('/api/story/dislike',
                 {"userId": userId, "storyId": storyId})
                 .then(function (response) {
                     if (response)
