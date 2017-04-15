@@ -219,7 +219,7 @@
 
         function deletePostDeal(dealId, userId) {
             dealService
-                .deleteStory(dealId, userId)
+                .deleteDeal(dealId, userId)
                 .then(function (data) {
                     console.log("s???");
                     findPostDealsByUser();
