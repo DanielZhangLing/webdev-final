@@ -35,12 +35,12 @@ module.exports = function (app, model) {
     var bcrypt = require("bcrypt-nodejs");
     var FacebookStrategy = require('passport-facebook').Strategy;
     var facebookConfig = {
-        // clientID     : process.env.FACEBOOK_CLIENT_ID,
-        // clientSecret : process.env.FACEBOOK_CLIENT_SECRET,
-        // callbackURL  : process.env.FACEBOOK_CALLBACK_URL
-        clientID: "247098202428141",
-        clientSecret: "c214d4b5ab4be38693831b24ed94e5b4",
-        callbackURL: "http://127.0.0.1:3000/auth/facebook/callback"
+        clientID     : process.env.FACEBOOK_CLIENT_ID,
+        clientSecret : process.env.FACEBOOK_CLIENT_SECRET,
+        callbackURL  : process.env.FACEBOOK_CALLBACK_URL
+        // clientID: "247098202428141",
+        // clientSecret: "c214d4b5ab4be38693831b24ed94e5b4",
+        // callbackURL: "http://127.0.0.1:3000/auth/facebook/callback"
     };
     var LocalStrategy = require('passport-local').Strategy;
     passport.use(new LocalStrategy(localStrategy));

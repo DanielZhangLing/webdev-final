@@ -74,7 +74,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/project/views/home.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="195">
@@ -86,6 +86,16 @@
                 <element signature="n#style#0;n#hr#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#a#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user.service.server.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/project/services/user.service.server.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="40" column="39" lean-forward="false" selection-start-line="40" selection-start-column="39" selection-end-line="42" selection-end-column="70" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -122,16 +132,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="review.service.server.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/project/services/review.service.server.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="16" column="27" lean-forward="false" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -155,6 +155,7 @@
       <find>isAdmin</find>
       <find>src</find>
       <find>assets</find>
+      <find>sky</find>
     </findStrings>
     <replaceStrings>
       <replace>../assets</replace>
@@ -190,11 +191,11 @@
         <option value="$PROJECT_DIR$/project/models/review/review.model.server.js" />
         <option value="$PROJECT_DIR$/public/project/views/user/templates/admin.view.client.html" />
         <option value="$PROJECT_DIR$/project/models/user/user.model.server.js" />
-        <option value="$PROJECT_DIR$/project/services/user.service.server.js" />
         <option value="$PROJECT_DIR$/public/project/views/story/controllers/story-add.controller.client.js" />
         <option value="$PROJECT_DIR$/public/project/views/user/controllers/admin.controller.client.js" />
         <option value="$PROJECT_DIR$/public/project/config.js" />
         <option value="$PROJECT_DIR$/public/project/views/home.html" />
+        <option value="$PROJECT_DIR$/project/services/user.service.server.js" />
       </list>
     </option>
   </component>
@@ -601,12 +602,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1492228470784</updated>
-      <workItem from="1492228473567" duration="20927000" />
+      <workItem from="1492228473567" duration="20971000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20927000" />
+    <option name="totallyTimeSpent" value="20971000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="4" y="23" width="1276" height="777" extended-state="6" />
@@ -932,14 +933,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/project/services/user.service.server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="165" column="13" lean-forward="false" selection-start-line="165" selection-start-column="13" selection-end-line="165" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/project/services/story.server.server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="269">
@@ -1030,6 +1023,14 @@
             <element signature="n#style#0;n#hr#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#a#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/project/services/user.service.server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="40" column="39" lean-forward="false" selection-start-line="40" selection-start-column="39" selection-end-line="42" selection-end-column="70" />
+          <folding />
         </state>
       </provider>
     </entry>
