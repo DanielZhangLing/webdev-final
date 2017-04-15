@@ -16,15 +16,21 @@
                 controller: "LoginController",
                 controllerAs: "model"
             })
+            .when("/admin", {
+                templateUrl: 'views/user/templates/admin.view.client.html',
+                controller: "AdminController",
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkAdmin
+                }
+            })
             .when("/error", {
                 templateUrl: 'views/error/templates/error-authority.view.client.html',
                 // controller: "LoginController",
                 // controllerAs: "model"
             })
             .when("/", {
-                templateUrl: 'views/user/templates/login.view.client.html',
-                controller: "LoginController",
-                controllerAs: "model"
+                templateUrl: 'views/home.html'
             })
             .when("default", {
                 templateUrl: 'views/user/templates/login.view.client.html',
@@ -154,6 +160,21 @@
             var deferred = $q.defer();
             userService
                 .isMerchant()
+                .then(function (user) {
+                    if (user != '0') {
+                        deferred.resolve(user);
+                    } else {
+                        $location.url('/error');
+                        deferred.reject();
+                    }
+                });
+            return deferred.promise;
+        }
+
+        function checkAdmin($q, userService, $location) {
+            var deferred = $q.defer();
+            userService
+                .isAdmin()
                 .then(function (user) {
                     if (user != '0') {
                         deferred.resolve(user);

@@ -8,10 +8,21 @@ module.exports = function (app, model) {
     app.get("/api/review/deal/:dealId", findReviewByDeal);
     app.get("/api/review/user/:userId", findReviewsByUser);
     app.delete('/api/review/:reviewId/user/:userId', deleteMyReview)
+    app.get("/api/reviews", findAllReviews);
 
     storyModel = model.storyModel;
     userModel = model.userModel;
     reviewModel = model.reviewModel;
+
+    function findAllReviews(req, res) {
+        reviewModel
+            .findAllReviews()
+            .then(function (reviews) {
+                res.json(reviews);
+            }, function (error) {
+                res.sendStatus(500);
+            });
+    }
 
     function deleteMyReview(req, res) {
         var reviewId = req.params.reviewId;

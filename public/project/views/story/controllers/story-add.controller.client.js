@@ -21,7 +21,10 @@
                         vm.spot = spot;
                     }
                     else{
-                        vm.error = "can't find select spot, please try again!"
+                        vm.error = "can't find select spot, please try again!";
+                        $timeout(function () {
+                            vm.error = false;
+                        }, 3000);
                     }
                 })
         }

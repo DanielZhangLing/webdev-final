@@ -13,8 +13,11 @@
             console.log(user);
             userService
                 .register(user)
-                .then(function () {
-                        $location.url('profile');
+                .then(function (user) {
+                        if (user.type == "ADMIN")
+                            $location.url('/admin');
+                        else
+                            $location.url('profile');
                     },
                     function (err) {
                         if (err) {

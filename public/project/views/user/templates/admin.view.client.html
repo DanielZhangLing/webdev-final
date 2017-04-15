@@ -1,0 +1,96 @@
+<div ng-show="model.error" class="alert alert-danger" role="alert"><strong>Error:</strong> {{model.error}}</div>
+<div ng-show="model.message" class="alert alert-success" role="alert"><strong>Message:</strong> {{model.message}}</div>
+<div id="content">
+    <div class="container">
+        <div class="card-accordion" id="accordion" role="tablist" aria-multiselectable="true">
+            <!-- Card 1 -->
+            <div class="card">
+                <h4 class="card-header py-0 px-0" role="tab" id="headingOne">
+                    <a show-accordion data-toggle="collapse" data-parent="#accordion" href="admin#collapseOne"
+                       aria-expanded="true" aria-controls="collapseOne" class="show"> User </a>
+                </h4>
+                <div id="collapseOne" class="in collapse show" role="tabpanel" aria-labelledby="headingOne"
+                     aria-expanded="true">
+                    <div class="card-block">
+                        <ul class="list-group">
+                            <li ng-repeat="user in model.users" class="list-group-item">
+                                <a href="#/user/{{user._id}}">
+                                    {{user.username}}
+                                </a>
+                                <a ng-click="model.deleteUser(user._id)">
+                                    <span class="fa fa-times pull-right"/>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="card">
+                <h4 class="card-header py-0 px-0" role="tab" id="headingTwo">
+                    <a show-accordion class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                       href="admin#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> Story </a>
+                </h4>
+                <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo"
+                     aria-expanded="false">
+                    <div class="card-block">
+                        <ul class="list-group">
+                            <li ng-repeat="story in model.stories" class="list-group-item">
+                                <a href="#/story/{{story._id}}">
+                                    {{story.title}}
+                                </a>
+                                <a ng-click="model.deleteStory(story._id, story.author)">
+                                    <span class="fa fa-times pull-right"/>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="card">
+                <h4 class="card-header py-0 px-0" role="tab" id="headingThree">
+                    <a show-accordion class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                       href="admin#collapseThree" aria-expanded="false" aria-controls="collapseThree"> Deal </a>
+                </h4>
+                <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree"
+                     aria-expanded="false">
+                    <div class="card-block">
+                        <ul class="list-group">
+                            <li ng-repeat="deal in model.deals" class="list-group-item">
+                                <a href="#/deal/{{deal._id}}">
+                                    {{deal.title}}
+                                </a>
+                                <a ng-click="model.deleteDeal(deal._id, deal.author)">
+                                    <span class="fa fa-times pull-right"/>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="card">
+                <h4 class="card-header py-0 px-0" role="tab" id="headingFour">
+                    <a show-accordion class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                       href="admin#collapseFour" aria-expanded="false" aria-controls="collapseFour"> Review </a>
+                </h4>
+                <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour"
+                     aria-expanded="false">
+                    <div class="card-block">
+                        <ul class="list-group">
+                            <li ng-repeat="review in model.reviews" class="list-group-item">
+                                <span href="">
+                                    {{review.authorName}}:{{review.comments}}
+                                </span>
+                                <a ng-click="model.deleteReview(review._id, review.author)">
+                                    <span class="fa fa-times pull-right"/>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

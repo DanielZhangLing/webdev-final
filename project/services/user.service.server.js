@@ -20,7 +20,7 @@ module.exports = function (app, model) {
     app.post('/api/logout', logout);
     app.get('/api/user/:userId', findUserById);
     app.get('/api/user/:username', findUserByUsername);
-    app.get ('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+    app.get('/auth/facebook', passport.authenticate('facebook', {scope: 'email'}));
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', {
             successRedirect: '/project/#/profile',
@@ -28,55 +28,62 @@ module.exports = function (app, model) {
         }));
 
     // app.post('/api/experiments/passport/admin/user', auth, createUser);
-    // app.get('/api/experiments/passport/admin/user', auth, findAllUsers);
+    app.get('/api/admin/user', findAllUsers);
     // app.put('/api/experiments/passport/admin/user/:userId', auth, updateUser);
-    // app.delete('/api/experiments/passport/admin/user/:userId', auth, deleteUser);
+    app.delete('/api/user/:userId', deleteUser);
 
     var bcrypt = require("bcrypt-nodejs");
     var FacebookStrategy = require('passport-facebook').Strategy;
     var facebookConfig = {
-        clientID     : process.env.FACEBOOK_CLIENT_ID,
-        clientSecret : process.env.FACEBOOK_CLIENT_SECRET,
-        callbackURL  : process.env.FACEBOOK_CALLBACK_URL
-        // clientID     : "247098202428141",
-        // clientSecret : "c214d4b5ab4be38693831b24ed94e5b4",
-        // callbackURL  : "http://127.0.0.1:3000/auth/facebook/callback"
+        // clientID     : process.env.FACEBOOK_CLIENT_ID,
+        // clientSecret : process.env.FACEBOOK_CLIENT_SECRET,
+        // callbackURL  : process.env.FACEBOOK_CALLBACK_URL
+        clientID: "247098202428141",
+        clientSecret: "c214d4b5ab4be38693831b24ed94e5b4",
+        callbackURL: "http://127.0.0.1:3000/auth/facebook/callback"
     };
     var LocalStrategy = require('passport-local').Strategy;
     passport.use(new LocalStrategy(localStrategy));
     passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
     userModel = model.userModel;
+    dealModel = model.dealModel;
+    reviewModel = model.reviewModel;
+    storyModel = model.storyModel;
 
     function facebookStrategy(token, refreshToken, profile, done) {
         userModel
             .findUserByFacebookId(profile.id)
             .then(
-                function(user) {
-                    if(user) {
+                function (user) {
+                    if (user) {
                         return done(null, user);
                     } else {
                         var newFacebookUser = {
-                            username:  profile.displayName,
+                            username: profile.displayName,
                             firstname: profile.name.givenName,
-                            lastname:  profile.name.familyName,
+                            lastname: profile.name.familyName,
                             facebook: {
-                                id:    profile.id,
+                                id: profile.id,
                                 token: token
                             }
                         };
                         return userModel.createUser(newFacebookUser);
                     }
                 },
-                function(err) {
-                    if (err) { return done(err); }
+                function (err) {
+                    if (err) {
+                        return done(err);
+                    }
                 }
             )
             .then(
-                function(user){
+                function (user) {
                     return done(null, user);
                 },
-                function(err){
-                    if (err) { return done(err); }
+                function (err) {
+                    if (err) {
+                        return done(err);
+                    }
                 }
             );
     }
@@ -127,10 +134,10 @@ module.exports = function (app, model) {
                     if (user) {
                         req.login(user, function (err) {
                             user.password = '';
-                            if (err) {
-                                res.status(500).send(err);
-                            } else {
+                            if (user) {
                                 res.json(user);
+                            } else {
+                                res.status(500).send(err);
                             }
                         });
                     }
@@ -207,10 +214,10 @@ module.exports = function (app, model) {
         userModel
             .findAllUsers()
             .then(function (users) {
-                if (err) {
-                    res.send(500);
-                } else {
+                if (users) {
                     res.json(users);
+                } else {
+                    res.send(500);
                 }
             });
     }
@@ -228,16 +235,85 @@ module.exports = function (app, model) {
     }
 
     function deleteUser(req, res) {
-        userModel
-            .deleteUser(req.params.userId)
-            .then(function (status) {
-                if (err) {
-                    res.send(500);
-                } else {
-                    res.json(status);
+        var userId = req.params.userId;
+        return userModel
+            .deleteUser(userId)
+            .then(
+                function (status) {
+                    console.log(status);
+                    return status;
+                },
+                function (error) {
+                    res.sendStatus(500);
+                })
+            .then(
+                function (status) {
+                    return storyModel
+                        .deleteUserStory(userId)
+                        .then(function (status) {
+                                console.log(status);
+                                return status;
+                            },
+                            function (error) {
+                                res.sendStatus(500);
+                            })
+                        .then(function (status) {
+                            return dealModel
+                                .deleteUserDeal(userId)
+                                .then(
+                                    function (status) {
+                                        console.log(status);
+                                        return status;
+                                    },
+                                    function (error) {
+                                        res.sendStatus(500);
+                                    })
+                                .then(function (status) {
+                                    return reviewModel
+                                        .deleteUserReview(userId)
+                                        .then(
+                                            function (status) {
+                                                console.log(status);
+                                                return status;
+                                            },
+                                            function (error) {
+                                                res.sendStatus(500);
+                                            })
+                                })
+                        })
                 }
-            });
+            )
     }
+
+    // function deleteUser(req, res) {
+    //     userId = req.params.userId;
+    //     userModel
+    //         .deleteUser(userId)
+    //         .then(function (status) {
+    //             return storyModel
+    //                 .deleteUserStory(userId)
+    //                 .then(function(status){
+    //                     return dealModel
+    //                         .deleteUserDeal(userId)
+    //                         .then(function(status){
+    //                             return reviewModel
+    //                                 .deleteUserReview(status)
+    //                                 .then(function(status){
+    //                                     res.json(Status);
+    //                                 },function (err) {
+    //                                     res.send(500);
+    //                                 })
+    //                         },function (err) {
+    //                             res.send(500);
+    //                         })
+    //                 },function (err) {
+    //                 res.send(500);
+    //             })
+    //         },function (err) {
+    //             res.send(500);
+    //         })
+    // }
+
 
     function serializeUser(user, done) {
         done(null, user);
@@ -258,7 +334,6 @@ module.exports = function (app, model) {
 
     function authorized(req, res, next) {
         if (!req.isAuthenticated()) {
-            console.log("lala");
             res.send(401);
         } else {
             next();
@@ -279,4 +354,5 @@ module.exports = function (app, model) {
             );
     }
 
-};
+}
+;

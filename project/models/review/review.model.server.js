@@ -11,6 +11,8 @@ module.exports = function () {
         findReviewByDeal: findReviewByDeal,
         findReviewsByUser: findReviewsByUser,
         deleteReview: deleteReview,
+        deleteUserReview: deleteUserReview,
+        findAllReviews: findAllReviews,
 
     };
 
@@ -21,6 +23,20 @@ module.exports = function () {
 
     return api;
 
+
+    function findAllReviews() {
+        var d = q.defer();
+        ReviewModel
+            .find(function (err, reviews) {
+                if (err) {
+                    d.abort(err);
+                } else {
+                    d.resolve(reviews);
+                }
+            }).sort({dateCreated: -1});
+        return d.promise;
+    }
+
     function deleteReview(reviewId) {
         var d = q.defer();
         ReviewModel.remove({_id: reviewId},
@@ -28,8 +44,23 @@ module.exports = function () {
                 if (err) {
                     d.reject(err);
                 }
-                else {console.log("s5");
+                else {
+                    console.log("s5");
 
+                    d.resolve(status);
+                }
+            });
+        return d.promise;
+    }
+
+    function deleteUserReview(userId) {
+        var d = q.defer();
+        ReviewModel.remove({author: userId},
+            function (err, status) {
+                if (err) {
+                    d.reject(err);
+                }
+                else {
                     d.resolve(status);
                 }
             });

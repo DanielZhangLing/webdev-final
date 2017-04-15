@@ -14,6 +14,7 @@ module.exports = function () {
         // findUserByUsername: findUserByUsername,
         findAllDeals: findAllDeals,
         deleteDeal: deleteDeal,
+        deleteUserDeal: deleteUserDeal,
         // updateUser: updateUser,
         // findSpotByGeoId: findSpotByGeoId,
         createDeal: createDeal,
@@ -271,6 +272,20 @@ module.exports = function () {
         console.log("dasdasdsad" + dealId);
         var d = q.defer();
         DealModel.remove({_id: dealId},
+            function (err, status) {
+                if (err) {
+                    d.reject(err);
+                }
+                else {
+                    d.resolve(status);
+                }
+            });
+        return d.promise;
+    }
+
+    function deleteUserDeal(userId) {
+        var d = q.defer();
+        DealModel.remove({author: userId},
             function (err, status) {
                 if (err) {
                     d.reject(err);

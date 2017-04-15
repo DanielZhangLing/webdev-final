@@ -7,7 +7,7 @@
         var api = {
             // "createUser": createUser,
             "updateUser": updateUser,
-            // "deleteUser": deleteUser,
+            "deleteUser": deleteUser,
             "findUserById": findUserById,
             // "findUserByUsername": findUserByUsername,
             // "findUserByCredentials": findUserByCredentials,
@@ -36,7 +36,10 @@
         function findAllUsers() {
             return $http.get('/api/admin/user')
                 .then(function (response) {
-                    return response.data;
+                    if (response)
+                        return response.data;
+                    else
+                        return null;
                 });
         }
 
@@ -82,7 +85,7 @@
         function register(user) {
             return $http.post('/api/register', user)
                 .then(function (response) {
-                    if(response)
+                    if (response)
                         return response.data;
                     else
                         return null;
@@ -93,6 +96,18 @@
             return $http.put('/api/user/' + userId, user)
                 .then(function (response) {
                     return response.data;
+                }, function (err) {
+                    return null;
+                });
+        }
+
+        function deleteUser(userId) {
+            return $http.delete('/api/user/' + userId)
+                .then(function (response) {
+                    if (response)
+                        return response.data;
+                    else
+                        return null;
                 }, function (err) {
                     return null;
                 });

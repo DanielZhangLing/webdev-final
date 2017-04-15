@@ -10,8 +10,19 @@
             "findReviewsByUser": findReviewsByUser,
             "findReviewByDeal": findReviewByDeal,
             "deleteMyReview": deleteMyReview,
+            "findAllReviews": findAllReviews,
         };
         return api;
+
+        function findAllReviews() {
+            return $http.get('/api/reviews')
+                .then(function (response) {
+                    if (response)
+                        return response.data;
+                    else
+                        return null;
+                });
+        }
 
         function deleteMyReview(reviewId, userId){
             return $http.delete('/api/review/'+reviewId+'/user/'+userId)

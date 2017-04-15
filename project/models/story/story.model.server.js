@@ -6,6 +6,7 @@ module.exports = function () {
     var api = {
         // createUser: createUser,
         // findUserByCredentials: findUserByCredentials,
+        deleteUserStory: deleteUserStory,
         findStoryById: findStoryById,
         addLikeForStory: addLikeForStory,
         deleteLikeForStory: deleteLikeForStory,
@@ -29,7 +30,7 @@ module.exports = function () {
 
     return api;
 
-    function findStoryBySpot(spot){
+    function findStoryBySpot(spot) {
         var d = q.defer();
         StoryModel
             .find({spot: spot.toLowerCase()},
@@ -235,6 +236,20 @@ module.exports = function () {
         console.log("dasdasdsad" + storyId);
         var d = q.defer();
         StoryModel.remove({_id: storyId},
+            function (err, status) {
+                if (err) {
+                    d.reject(err);
+                }
+                else {
+                    d.resolve(status);
+                }
+            });
+        return d.promise;
+    }
+
+    function deleteUserStory(userId) {
+        var d = q.defer();
+        StoryModel.remove({author: userId},
             function (err, status) {
                 if (err) {
                     d.reject(err);
