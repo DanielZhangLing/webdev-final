@@ -1,0 +1,196 @@
+<div id="page-header">
+    <div class="container clearfix">
+        <h3 class="mb-0 float-md-left">
+            Spot Detail
+        </h3>
+        <!-- Page header breadcrumb -->
+        <nav class="breadcrumb float-md-right"><a class="breadcrumb-item" href="#/">Home</a> <a
+                class="breadcrumb-item" href="#/spot">Spot</a> <span
+                class="breadcrumb-item active">Spot Detail</span></nav>
+    </div>
+</div>
+<div id="content" class="pt-3 pb-lg-0">
+    <div class="container">
+        <!-- Product view -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card product-card mb-4">
+                    <!-- Content -->
+                    <div class="card-block p-4 pos-relative">
+                        <!-- Product details -->
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <img src="{{model.spot.thumbnailImg}}"
+                                     class="img-thumbnail" height="90">
+                            </div>
+                            <div class="col-sm-7">
+                                <p class="text-muted text-uppercase text-xs mb-0"><span class="text-primary">Spot</span>
+                                    /
+                                    {{model.spot.feature}}</p>
+                                <h2 class="card-title mb-2">
+                                    {{model.spot.title}}
+                                </h2>
+                                <h4 class="font-weight-bold text-primary">
+                                    <span class="op-5">Rank</span>
+                                    : {{model.spot.rank}}
+                                </h4>
+                                <p class="mb-t mb-0 text-sm">wiki: <a href="http://{{model.spot.wikipediaUrl}}">{{model.spot.wikipediaUrl}}</a>
+                                </p>
+                            </div>
+                            <div class="pos-md-absolute pos-t pos-r mr-4 mt-3 text-md-right">
+                                <i class="fa fa-star text-primary"></i> <i class="fa fa-star text-primary"></i> <i
+                                    class="fa fa-star text-primary"></i> <i class="fa fa-star text-primary"></i> <i
+                                    class="fa fa-star text-primary"></i>
+                                <p class="my-0 text-xs">10 reviews | <a href="#reviews">write review</a></p>
+                            </div>
+                        </div>
+
+                        <hr class="my-3">
+                        <p class="text-muted text-sm" ng-bind-html="model.getTrustedHtml(model.spot.content)"></p>
+                        <!--<p class="text-muted text-sm">Acsi facilisis fere quibus quidne. Distineo elit et illum in incassum lenis magna typicus vel. Damnum ideo iriure letalis minim nulla.</p>-->
+                        <hr class="my-3 mb-5">
+                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                            <a href="#/spot/{{model.spotId}}/story/new">
+                            <button  type="button" class="btn btn-primary"><i class="fa fa-book"></i> Post Story</button>
+                            </a>
+                            <a href="#/spot/{{model.spotId}}/deal/new">
+                            <button href="#/spot/{{model.spotId}}/deal/new" type="button" class="btn btn-primary"><i class="fa fa-child"></i> Post Deal
+                            </button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <!-- Product tabs, @see: elements-navs-tabbable.htm -->
+                <div class="card border-top-0">
+                    <div class="card-header bg-white pt-0 px-0">
+                        <ul class="nav nav-tabs nav-justified card-header-tabs flex-column flex-md-row">
+                            <li class="nav-item"><a show-tab="" class="nav-link py-md-3 text-uppercase font-weight-bold active"
+                                                    href="#/spot/{{model.spotId}}#spotStoryTab" data-toggle="tab"
+                                                    aria-expanded="true">Stories</a>
+                            </li>
+                            <li class="nav-item"><a show-tab=""
+                                                    class="nav-link py-md-3 text-uppercase font-weight-bold"
+                                                    href="#/spot/{{model.spotId}}#spotDealTab" data-toggle="tab" aria-expanded="false">Deals</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-block p-4">
+                        <div class="tab-content">
+                            <!-- Tab 1: Description tab content -->
+                            <div class="tab-pane active" id="spotStoryTab" aria-expanded="true">
+                                <h4 class="card-title">
+                                    Stories
+                                </h4>
+                                <hr class="my-4">
+                                <div class="col-md-12 blog-roll blog-list">
+                                    <!-- Blog post -->
+                                    <div ng-repeat="story in model.stories" class="row blog-post">
+                                        <div class="col-md-1 date-md">
+                                            <!-- Date desktop -->
+                                            <div class="date-wrapper"><span class="date-m bg-primary">{{story.dateCreated|date:'LLLL'}}</span>
+                                                <span class="date-d">{{story.dateCreated|date:'dd'}}</span></div>
+                                            <!-- Meta details desktop -->
+                                            <p class="text-muted"><i class="fa fa-user"></i> <a
+                                                    href="#/user/{{story.author}}">{{story.authorName}}</a></p>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <div class="tags"><a href="#/story" class="text-primary">story</a> / <a
+                                                    href="#/spot/{{story.geoNameId}}"
+                                                    class="type">{{story.spot}}</a>
+                                            </div>
+                                            <h4 class="title media-heading">
+                                                <a href="#/story/{{story._id}}">{{story.title}}</a>
+                                            </h4>
+                                            <!-- Meta details mobile -->
+                                            <ul class="list-inline meta text-muted">
+                                                <li class="list-inline-item"><i class="fa fa-calendar"></i>
+                                                    {{story.dateCreated| date:'MM/dd/yyyy'}}
+                                                </li>
+                                                <li class="list-inline-item"><i class="fa fa-user"></i> <a
+                                                        href="#/user/{{story.author}}">{{story.authorName}}</a></li>
+                                            </ul>
+                                            <div class="row">
+                                                <div class="col-md-4 push-md-8">
+                                                    <div class="blog-media">
+                                                        <a href="#/story/{{story._id}}">
+                                                            <img src="{{story.image}}" alt="Card image cap"
+                                                                 class="img-fluid">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8 pull-md-4">
+                                                    <p class="break-word">
+                                                        {{model.htmlToPlaintext(story.description)}}</p>
+                                                    <ul class="list-inline links">
+                                                        <li class="list-inline-item">
+                                                            <a href="#/story/{{story._id}}"
+                                                               class="btn btn-secondary btn-sm"><i
+                                                                    class="fa fa-arrow-circle-right"></i> Read more</a>
+                                                        </li>
+                                                        <li class="list-inline-item">
+                                                            <a href="#/story/{{story._id}}#comments"
+                                                               class="btn btn-secondary btn-sm"><i
+                                                                    class="fa fa-comment"></i> {{story.reviews.length}}
+                                                                Comments</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Blog post -->
+
+                                    <div class="pagination">
+                                        <button ng-click="model.showMore()" type="button"
+                                                class="btn btn-secondary btn-lg btn-block">Load More
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Tab 2: Specification tab content -->
+                            <div class="tab-pane" id="spotDealTab" aria-expanded="false">
+                                <h4 class="card-title">
+                                    Deals
+                                </h4>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <!-- Product 2 -->
+                                        <div ng-repeat="deal in model.deals" class="card product-card mb-4">
+                                            <!-- Content -->
+                                            <div class="card-block p-3 pos-relative row">
+                                                <!-- Image content -->
+                                                <div class="col-md-4 mb-2 mb-md-0">
+                                                    <img class="rounded img-fluid" src="{{deal.image}}" alt="Card image cap">
+                                                </div>
+                                                <!-- Product details -->
+                                                <div class="col-md-8 d-flex flex-column align-items-start">
+                                                    <p class="text-muted text-uppercase text-xs mb-0"><span class="text-primary">Story</span> / {{deal.spot}}</p>
+                                                    <h4 class="card-title mb-2">
+                                                        <a href="#/deal/{{deal._id}}" class="text-grey-dark">{{deal.title}}</a>
+                                                    </h4>
+                                                    <p class="font-weight-bold">${{deal.price}}</p>
+                                                    <!--<p class="pos-md-absolute pos-t pos-r mr-3 text-md-right"> <i class="fa fa-star text-primary"></i></p>-->
+                                                    <p class="text-muted text-xs">{{model.htmlToPlaintext(deal.description)}}</p>
+                                                    <div class="mt-auto">
+                                                        <a href="#/deal/{{deal._id}}" class="btn btn-primary btn-sm"><i class="fa fa-folder-open-o mr-2"></i> Details</a>
+                                                        <!--<a href="#" class="btn btn-link btn-sm"><i class="fa fa-trash"></i> Delete this Deals</a>-->
+                                                        <p class="text-muted text-xs d-inline hidden-md-down">{{deal.likeUser.length}} people lke it</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /container -->
+<hr class="mt-6 mb-0">
+
+</div>

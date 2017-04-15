@@ -1,0 +1,62 @@
+<div id="page-header">
+    <div class="container clearfix">
+        <h3 class="mb-0 float-md-left">
+            Deals List
+        </h3>
+        <!-- Page header breadcrumb -->
+        <nav class="breadcrumb float-md-right"> <a class="breadcrumb-item" href="#/">Home</a> <span class="breadcrumb-item active">Deals List</span> </nav>
+    </div>
+</div>
+<div id="content" class="py-3 py-lg-6">
+    <div class="container">
+        <div class="row">
+            <!-- Products grid -->
+            <div class="col-sm-12">
+                <!-- Products filters -->
+                <div class="row">
+                    <div class="col-lg-6 mb-3 mb-lg-0">
+                        <form class="form-inline justify-content-lg-start text-sm">
+                            <label class="control-label mr-2">Search:</label>
+                            <input ng-model="keyword" type="text" class="form-control form-control-sm mr-lg-2" placeholder="ie. Boston">
+                            <button ng-click="model.search(keyword)" type="submit" class="btn btn-primary"> <i class="fa fa-search"></i> Search </button>
+                        </form>
+                    </div>
+                </div>
+                <hr class="my-4">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- Product 2 -->
+                        <div ng-repeat="deal in model.deals" class="card product-card mb-4">
+                            <!-- Content -->
+                            <div class="card-block p-3 pos-relative row">
+                                <!-- Image content -->
+                                <div class="col-md-4 mb-2 mb-md-0">
+                                    <img class="rounded img-fluid" src="{{deal.image}}" alt="Card image cap">
+                                </div>
+                                <!-- Product details -->
+                                <div class="col-md-8 d-flex flex-column align-items-start">
+                                    <p class="text-muted text-uppercase text-xs mb-0"><span class="text-primary">Story</span> / {{deal.spot}}</p>
+                                    <h4 class="card-title mb-2">
+                                        <a href="#/deal/{{deal._id}}" class="text-grey-dark">{{deal.title}}</a>
+                                    </h4>
+                                    <p class="font-weight-bold">${{deal.price}}</p>
+                                    <!--<p class="pos-md-absolute pos-t pos-r mr-3 text-md-right"> <i class="fa fa-star text-primary"></i></p>-->
+                                    <p class="text-muted text-xs">{{model.htmlToPlaintext(deal.description)}}</p>
+                                    <div class="mt-auto">
+                                        <a href="#/deal/{{deal._id}}" class="btn btn-primary btn-sm"><i class="fa fa-folder-open-o mr-2"></i> Details</a>
+                                        <!--<a href="#" class="btn btn-link btn-sm"><i class="fa fa-trash"></i> Delete this Deals</a>-->
+                                        <p class="text-muted text-xs d-inline hidden-md-down">{{deal.likeUser.length}} people lke it</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pagination -->
+                <div class="pagination">
+                    <button ng-click="model.showMore()" type="button" class="btn btn-secondary btn-lg btn-block">Load More</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

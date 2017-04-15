@@ -1,0 +1,45 @@
+<div id="page-header">
+    <div class="container clearfix">
+        <h3 class="mb-0 float-md-left">
+            New Deal
+        </h3>
+        <!-- Page header breadcrumb -->
+        <nav class="breadcrumb float-md-right"><a class="breadcrumb-item" href="#/">Home</a>
+            <a class="breadcrumb-item" href="#/deal">Deal</a>
+            <a class="breadcrumb-item" href="#/deal/{{model.dealId}}">Detail</a>
+            <span class="breadcrumb-item active">New Deal</span>
+        </nav>
+    </div>
+</div>
+<div id="content" class="pt-3 pt-lg-6 pb-lg-0">
+    <div class="container">
+        <!-- Product view -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card product-card mb-4">
+                    <!-- Content -->
+                    <div class="card-block p-4 pos-relative">
+                        <!-- Product details -->
+                        <input ng-model="deal.title" type="text" class="noBorder form-control" id="dealTitle" aria-describedby="dealTitle" placeholder="Title">
+                        <hr class="my-3">
+                        <input ng-model="deal.spot" type="text" class="noBorder form-control" id="dealSpot" aria-describedby="dealSpot" placeholder="{{model.spot.title}}" disabled>
+                        <hr class="my-3">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <input ng-model="deal.price" type="number" class="noBorder form-control" id="dealPrice" aria-describedby="dealPrice" placeholder="Price">
+                            <div class="noBorder input-group-addon">$</div>
+                        </div>
+                        <hr class="my-3">
+                        <textarea ng-model="deal.description" class="form-control noBorder" id="dealDescription" rows="10" placeholder="Passage..."></textarea>
+                        <!--<p class="text-muted text-sm">Acsi facilisis fere quibus quidne. Distineo elit et illum in incassum lenis magna typicus vel. Damnum ideo iriure letalis minim nulla.</p>-->
+                        <hr class="my-3 mb-5">
+                        <button ng-click="model.createDeal(deal)" class="btn btn-primary"><i class="fa fa-rss"></i> Publish</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /container -->
+<hr class="mt-6 mb-0">
+
+</div>

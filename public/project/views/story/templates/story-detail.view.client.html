@@ -1,0 +1,122 @@
+<div id="page-header">
+    <div class="container clearfix">
+        <h3 class="mb-0 float-md-left">
+            Story Detail
+        </h3>
+        <!-- Page header breadcrumb -->
+        <nav class="breadcrumb float-md-right"><a class="breadcrumb-item" href="#/">Home</a> <a
+                class="breadcrumb-item" href="#/story">Story</a> <span
+                class="breadcrumb-item active">Story Detail</span></nav>
+    </div>
+</div>
+<div ng-show="model.error" class="alert alert-danger" role="alert"><strong>Error:</strong> {{model.error}}</div>
+<div id="content" class="pt-3 pt-lg-6 pb-lg-0">
+    <div class="container">
+        <!-- Product view -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card product-card mb-4">
+                    <!-- Content -->
+                    <div class="card-block p-4 pos-relative">
+                        <!-- Product details -->
+                        <p class="text-muted text-uppercase text-xs mb-0"><span class="text-primary">Story</span> /
+                            {{model.story.spot}}</p>
+                        <h2 class="card-title mb-2">
+                            {{model.story.title}}
+                        </h2>
+                        <h4 class="font-weight-bold text-primary">
+                            <span class="op-5">Author</span>
+                            : {{model.story.authorName}}
+                        </h4>
+
+                        <div class="pos-md-absolute pos-t pos-r mr-4 mt-3 text-md-right">
+                            <i ng-repeat="a in model.getTimes(model.avgRate? model.avgRate:0) track by $index"
+                               class="fa fa-star text-primary icon-1x"></i>
+                            <i ng-repeat="a in (model.getTimes(5-(model.avgRate? model.avgRate:0))) track by $index"
+                               class="fa fa-star-o text-primary icon-1x"></i>
+                            <p class="my-0 text-xs">{{model.reviews.length}} reviews | <a href="{{model.reviewUrl}}">write
+                                review</a></p>
+                        </div>
+                        <hr class="my-3">
+                        <p class="text-muted text-sm" ng-bind-html="model.getTrustedHtml(model.story.description)"></p>
+                        <!--<p class="text-muted text-sm">Acsi facilisis fere quibus quidne. Distineo elit et illum in incassum lenis magna typicus vel. Damnum ideo iriure letalis minim nulla.</p>-->
+                        <hr class="my-3 mb-5">
+                        <button ng-show="!model.liked" ng-click="model.likeStory()" class="btn btn-primary"><i
+                                class="fa fa-heart mr-2"></i> Add to Favorite
+                        </button>
+                        <button ng-show="model.liked" ng-click="model.dislikeStory()" class="btn btn-primary"><i
+                                class="fa fa-heart-o mr-2"></i> Delete from Favorite
+                        </button>
+                        <p class="text-muted text-xs d-inline hidden-md-down">{{model.likes}} people like it</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <!-- Product tabs, @see: elements-navs-tabbable.htm -->
+                <div class="card product-card mb-4">
+                    <div class="card-block p-4">
+
+                        <h4 id="comments" class="card-title">
+                            Story Reviews
+                        </h4>
+                        <i ng-repeat="a in model.getTimes(model.avgRate? model.avgRate:0) track by $index"
+                           class="fa fa-star text-primary icon-1x"></i>
+                        <i ng-repeat="a in (model.getTimes(5-(model.avgRate? model.avgRate:0))) track by $index"
+                           class="fa fa-star-o text-primary icon-1x"></i><span class="my-0 text-xs">{{model.reviews.length}} reviews</span>
+                        <hr class="my-4">
+                        <ul class="comments mt-3 list-unstyled">
+                            <li ng-repeat="review in model.reviews" class="media mb-3 pos-relative">
+                                <div class="media-body">
+                                    <ul class="list-inline blog-meta text-muted">
+                                        <li class="list-inline-item"><i class="fa fa-calendar"></i> {{review.dateCreated|date:'MM/dd/yyyy'}}
+                                        </li>
+                                        <li class="list-inline-item"><i class="fa fa-user"></i> <a href="#/profile/{{review.author}}">{{review.authorName}}</a></li>
+                                    </ul>
+                                    <p class="mb-1">{{review.comments}}</p>
+                                    <p><i ng-repeat="a in model.getTimes(review.rate) track by $index" class="fa fa-star text-primary"></i>
+                                        <i ng-repeat="a in model.getTimes(5-review.rate) track by $index" class="fa fa-star-o text-primary"></i>
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                        <hr class="my-4">
+                        <h4>
+                            Add Review
+                        </h4>
+                        <form id="add-story-reviews-form" class="comment-form mt-3" role="form">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="sr-only" for="comment-name">Name</label>
+                                    <input required disabled ng-model="model.user.username" type="text" class="form-control mb-3" id="comment-name" placeholder="Name">
+                                    <label class="sr-only" for="comment-name">Email</label>
+                                    <input ng-model="review.email" type="email" class="form-control mb-3" id="comment-email"
+                                           placeholder="Email">
+                                    <select required ng-model="review.rate" class="form-control" placeholder="Star rating">
+                                        <option>- Stars -</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="sr-only" for="comment-comment">Comment</label>
+                                    <textarea ng-model="review.comments" rows="7" class="form-control" id="comment-comment"
+                                              placeholder="Comment"></textarea>
+                                </div>
+                            </div>
+                            <button ng-click="model.createReview(review)" type="submit" class="btn btn-primary float-right">Submit</button>
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /container -->
+<hr class="mt-6 mb-0">
+
+</div>

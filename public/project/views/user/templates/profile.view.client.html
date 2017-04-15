@@ -1,0 +1,495 @@
+<div ng-show="model.error" class="alert alert-danger" role="alert"><strong>Error:</strong> {{model.error}}</div>
+<div ng-show="model.message" class="alert alert-success" role="alert"><strong>Message:</strong> {{model.message}}</div>
+<div id="page-header">
+    <div class="row col-sm-9 alignMiddle container">
+        <div class="col-sm-2">
+            <img src="assets/img/team/jimi.jpg" class="img-thumbnail flex-fullwidth">
+        </div>
+        <!-- Page header breadcrumb -->
+        <div ng-show="!model.editable" class="col-sm-8">
+            <h3 class="name">
+                {{model.user.username}}
+            </h3>
+            <p class="role">{{model.user.firstName}} &amp; {{model.user.lastName}}</p>
+            <p class="margin-bottom-auto state">From: {{model.user.state}}</p>
+            <p class="margin-bottom-auto email">{{model.user.email}}</p>
+        </div>
+        <div ng-show="model.editable" class="col-sm-8">
+            <div class="form-group row pull-left">
+                <div class="col-sm-6">
+                    <input class="form-control" ng-model="model.user.firstName" type="text" placeholder="FirstName">
+                </div>
+                <div class="col-sm-6">
+                    <input class="form-control" ng-model="model.user.lastName" type="text" placeholder="LastName">
+                </div>
+            </div>
+            <div class="form-group">
+                <select class="form-control" ng-init="model.user.state" ng-model="model.user.state">
+                    <option value="-1">State</option>
+                    <option value="Alabama">Alabama</option>
+                    <option value="Alaska">Alaska</option>
+                    <option value="Arizona">Arizona</option>
+                    <option value="Arkansas">Arkansas</option>
+                    <option value="California">California</option>
+                    <option value="Colorado">Colorado</option>
+                    <option value="Connecticut">Connecticut</option>
+                    <option value="Delaware">Delaware</option>
+                    <option value="District Of Columbia">District Of Columbia</option>
+                    <option value="Florida">Florida</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Hawaii">Hawaii</option>
+                    <option value="Idaho">Idaho</option>
+                    <option value="Illinois">Illinois</option>
+                    <option value="Indiana">Indiana</option>
+                    <option value="Iowa">Iowa</option>
+                    <option value="Kansas">Kansas</option>
+                    <option value="Kentucky">Kentucky</option>
+                    <option value="Louisiana">Louisiana</option>
+                    <option value="Maine">Maine</option>
+                    <option value="Maryland">Maryland</option>
+                    <option value="Massachusetts">Massachusetts</option>
+                    <option value="Michigan">Michigan</option>
+                    <option value="Minnesota">Minnesota</option>
+                    <option value="Mississippi">Mississippi</option>
+                    <option value="Missouri">Missouri</option>
+                    <option value="Montana">Montana</option>
+                    <option value="Nebraska">Nebraska</option>
+                    <option value="Nevada">Nevada</option>
+                    <option value="New Hampshire">New Hampshire</option>
+                    <option value="New Jersey">New Jersey</option>
+                    <option value="New Mexico">New Mexico</option>
+                    <option value="New York">New York</option>
+                    <option value="North Carolina">North Carolina</option>
+                    <option value="North Dakota">North Dakota</option>
+                    <option value="Ohio">Ohio</option>
+                    <option value="Oklahoma">Oklahoma</option>
+                    <option value="Oregon">Oregon</option>
+                    <option value="Pennsylvania">Pennsylvania</option>
+                    <option value="Rhode Island">Rhode Island</option>
+                    <option value="South Carolina">South Carolina</option>
+                    <option value="South Dakota">South Dakota</option>
+                    <option value="Tennessee">Tennessee</option>
+                    <option value="Texas">Texas</option>
+                    <option value="Utah">Utah</option>
+                    <option value="Vermont">Vermont</option>
+                    <option value="Virginia">Virginia</option>
+                    <option value="Washington">Washington</option>
+                    <option value="West Virginia">West Virginia</option>
+                    <option value="Wisconsin">Wisconsin</option>
+                    <option value="Wyoming">Wyoming</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="email" ng-model="model.user.email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="tel" ng-model="model.user.phone" placeholder="Phone">
+            </div>
+        </div>
+        <div ng-show="(!model.owner||model.isThisUser)&&!model.editable" class="col-sm-2">
+            <div class="form-group">
+                <button ng-click="model.editUser();" type="button" class="btn btn-outline-primary">
+                    &nbsp&nbsp&nbspEdit&nbsp&nbsp&nbsp
+                </button>
+            </div>
+            <div class="form-group">
+                <button ng-click="model.logout();" type="button" class="btn btn-outline-danger">LogOut</button>
+            </div>
+        </div>
+        <div ng-show="(!model.owner||model.isThisUser)&&model.editable" class="col-sm-2">
+            <div class="form-group">
+                <button ng-click="model.updateUser(model.user);" type="button" class="btn btn-outline-primary">Update
+                </button>
+            </div>
+            <div class="form-group">
+                <button ng-click="model.cancelUpdate();" type="button" class="btn btn-outline-danger">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="content" class="pt-3 pb-lg-0">
+    <div class="container">
+        <!-- Product view -->
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Product tabs, @see: elements-navs-tabbable.htm -->
+                <div class="card border-top-0">
+                    <div class="card-header bg-white pt-0 px-0">
+                        <ul class="nav nav-tabs nav-justified card-header-tabs flex-column flex-md-row">
+                            <li ng-show="model.isThisUser||!model.owner" class="nav-item"><a show-tab
+                                                    class="nav-link py-md-3 text-uppercase font-weight-bold active"
+                                                    href="profile/#likeStoryTab" data-toggle="tab" aria-expanded="true">Favorite
+                                Stories</a>
+                            </li>
+                            <li ng-show="model.isThisUser||!model.owner" class="nav-item"><a show-tab class="nav-link py-md-3 text-uppercase font-weight-bold"
+                                                    href="profile/#likeDealTab" data-toggle="tab" aria-expanded="false">Favorite
+                                Deals</a>
+                            </li>
+                            <li class="nav-item"><a show-tab class="nav-link py-md-3 text-uppercase font-weight-bold"
+                                                    href="profile/#myStoryTab" data-toggle="tab" aria-expanded="true">My
+                                Stories</a>
+                            </li>
+                            <li ng-show="model.isThisUser||!model.owner" class="nav-item"><a show-tab class="nav-link py-md-3 text-uppercase font-weight-bold"
+                                                    href="profile/#myDealTab" data-toggle="tab" aria-expanded="false">My
+                                Deal</a>
+                            </li>
+                            <li ng-show="((model.isThisUser||!model.owner)&&model.isCurrentMerchant)||(!model.isThisUser&&model.owner&&model.isOwnerMerchant)" class="nav-item"><a show-tab class="nav-link py-md-3 text-uppercase font-weight-bold"
+                                                    href="profile/#postDealTab" data-toggle="tab" aria-expanded="false">Posted
+                                Deal</a>
+                            </li>
+                            <li class="nav-item"><a show-tab class="nav-link py-md-3 text-uppercase font-weight-bold"
+                                                    href="profile/#myReviewsTab" data-toggle="tab"
+                                                    aria-expanded="false">Reviews</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-block p-4">
+                        <div class="tab-content">
+                            <!-- Tab 1: Description tab content -->
+                            <div ng-show="model.isThisUser||!model.owner" class="tab-pane active" id="likeStoryTab" aria-expanded="true">
+                                <h4 class="card-title">
+                                    Favorite Stories
+                                </h4>
+                                <hr class="my-4">
+                                <div class="col-md-12 blog-roll blog-list">
+                                    <!-- Blog post -->
+                                    <div ng-repeat="story in model.likeStories" class="row blog-post">
+                                        <div ng-show="!model.owner||model.isThisUser"
+                                             class="z-index-2 pos-md-absolute pos-r text-md-right">
+                                            <p class="padding-left-15 my-0 text-xs">| <a
+                                                    ng-click="model.dislikeStory(story._id, story.author)">Dislike</a>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-1 date-md">
+                                            <!-- Date desktop -->
+                                            <div class="date-wrapper"><span class="date-m bg-primary">{{story.dateCreated|date:'LLLL'}}</span>
+                                                <span class="date-d">{{story.dateCreated|date:'dd'}}</span></div>
+                                            <!-- Meta details desktop -->
+                                            <p class="text-muted"><i class="fa fa-user"></i> <a
+                                                    href="#/user/{{story.author}}">{{story.authorName}}</a></p>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <div class="tags"><a href="#/story" class="text-primary">story</a> / <a
+                                                    href="#/spot/{{story.geoNameId}}"
+                                                    class="type">{{story.spot}}</a>
+                                            </div>
+                                            <h4 class="title media-heading">
+                                                <a href="#/story/{{story._id}}">{{story.title}}</a>
+                                            </h4>
+                                            <!-- Meta details mobile -->
+                                            <ul class="list-inline meta text-muted">
+                                                <li class="list-inline-item"><i class="fa fa-calendar"></i>
+                                                    {{story.dateCreated| date:'MM/dd/yyyy'}}
+                                                </li>
+                                                <li class="list-inline-item"><i class="fa fa-user"></i> <a
+                                                        href="#/user/{{story.author}}">{{story.authorName}}</a></li>
+                                            </ul>
+                                            <div class="row">
+                                                <div class="col-md-4 push-md-8">
+                                                    <div class="blog-media">
+                                                        <a href="#/story/{{story._id}}">
+                                                            <img src="{{story.image}}" alt="Card image cap"
+                                                                 class="img-fluid">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8 pull-md-4">
+                                                    <p class="break-word">
+                                                        {{model.htmlToPlaintext(story.description)}}</p>
+                                                    <ul class="list-inline links">
+                                                        <li class="list-inline-item">
+                                                            <a href="#/story/{{story._id}}"
+                                                               class="btn btn-secondary btn-sm"><i
+                                                                    class="fa fa-arrow-circle-right"></i> Read more</a>
+                                                        </li>
+                                                        <li class="list-inline-item">
+                                                            <a href="#/story/{{story._id}}#comments"
+                                                               class="btn btn-secondary btn-sm"><i
+                                                                    class="fa fa-comment"></i> {{story.reviews.length}}
+                                                                Comments</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Blog post -->
+
+                                    <div class="pagination">
+                                        <button ng-click="model.showMore()" type="button"
+                                                class="btn btn-secondary btn-lg btn-block">Load More
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Tab 2: Specification tab content -->
+                            <div ng-show="model.isThisUser||!model.owner" class="tab-pane" id="likeDealTab" aria-expanded="false">
+                                <h4 class="card-title">
+                                    Favorite Deals
+                                </h4>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <!-- Product 2 -->
+                                        <div ng-repeat="deal in model.likeDeals" class="card product-card mb-4">
+                                            <!-- Content -->
+                                            <div class="card-block p-3 pos-relative row">
+                                                <!-- Image content -->
+                                                <div class="col-md-4 mb-2 mb-md-0">
+                                                    <img class="rounded img-fluid" src="{{deal.image}}"
+                                                         alt="Card image cap">
+                                                </div>
+                                                <!-- Product details -->
+                                                <div class="col-md-8 d-flex flex-column align-items-start">
+                                                    <p class="text-muted text-uppercase text-xs mb-0"><span
+                                                            class="text-primary">Deal</span> / {{deal.spot}}</p>
+                                                    <h4 class="card-title mb-2">
+                                                        <a href="#/deal/{{deal._id}}"
+                                                           class="text-grey-dark">{{deal.title}}</a>
+                                                    </h4>
+                                                    <p class="font-weight-bold">${{deal.price}}</p>
+                                                    <!--<p class="pos-md-absolute pos-t pos-r mr-3 text-md-right"> <i class="fa fa-star text-primary"></i></p>-->
+                                                    <p class="text-muted text-xs">
+                                                        {{model.htmlToPlaintext(deal.description)}}</p>
+                                                    <div class="mt-auto">
+                                                        <a href="#/deal/{{deal._id}}" class="btn btn-primary btn-sm"><i
+                                                                class="fa fa-folder-open-o mr-2"></i> Details</a>
+                                                        <button ng-show="!model.owner||model.isThisUser"
+                                                                ng-click="model.dislikeDeal(deal._id,deal.author)"
+                                                                class="btn btn-link btn-sm"><i
+                                                                class="fa fa-trash"></i> Delete this Deals
+                                                        </button>
+                                                        <!--<a href="#" class="btn btn-link btn-sm"><i class="fa fa-trash"></i> Delete this Deals</a>-->
+                                                        <p class="text-muted text-xs d-inline hidden-md-down">
+                                                            {{deal.likeUser.length}} people lke it</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pagination">
+                                            <button ng-click="model.showMore()" type="button"
+                                                    class="btn btn-secondary btn-lg btn-block">Load More
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="myStoryTab" aria-expanded="false">
+                                <h4 class="card-title">
+                                    My Stories
+                                </h4>
+                                <hr class="my-4">
+                                <div class="col-md-12 blog-roll blog-list">
+                                    <!-- Blog post -->
+                                    <div ng-repeat="story in model.myStories" class="row blog-post">
+                                        <div ng-show="!model.owner||model.isThisUser"
+                                             class="z-index-2 pos-md-absolute pos-r text-md-right">
+                                            <p class="padding-left-15 my-0 text-xs"><a
+                                                    href="#/user/{{model.owner}}/story/{{story._id}}">Edit</a> | <a
+                                                    ng-click="model.deleteMyStory(story._id, story.author)">Delete</a>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-1 date-md">
+                                            <!-- Date desktop -->
+                                            <div class="date-wrapper"><span class="date-m bg-primary">{{story.dateCreated|date:'LLLL'}}</span>
+                                                <span class="date-d">{{story.dateCreated|date:'dd'}}</span></div>
+                                            <!-- Meta details desktop -->
+                                            <p class="text-muted"><i class="fa fa-user"></i> <a
+                                                    href="#/user/{{story.author}}">{{story.authorName}}</a></p>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <div class="tags"><a href="#/story" class="text-primary">story</a> / <a
+                                                    href="#/spot/{{story.geoNameId}}"
+                                                    class="type">{{story.spot}}</a>
+                                            </div>
+                                            <h4 class="title media-heading">
+                                                <a href="#/story/{{story._id}}">{{story.title}}</a>
+                                            </h4>
+                                            <!-- Meta details mobile -->
+                                            <ul class="list-inline meta text-muted">
+                                                <li class="list-inline-item"><i class="fa fa-calendar"></i>
+                                                    {{story.dateCreated| date:'MM/dd/yyyy'}}
+                                                </li>
+                                                <li class="list-inline-item"><i class="fa fa-user"></i> <a
+                                                        href="#/user/{{story.author}}">{{story.authorName}}</a></li>
+                                            </ul>
+                                            <div class="row">
+                                                <div class="col-md-4 push-md-8">
+                                                    <div class="blog-media">
+                                                        <a href="#/story/{{story._id}}">
+                                                            <img src="{{story.image}}" alt="Card image cap"
+                                                                 class="img-fluid">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8 pull-md-4">
+                                                    <p class="break-word">
+                                                        {{model.htmlToPlaintext(story.description)}}</p>
+                                                    <ul class="list-inline links">
+                                                        <li class="list-inline-item">
+                                                            <a href="#/story/{{story._id}}"
+                                                               class="btn btn-secondary btn-sm"><i
+                                                                    class="fa fa-arrow-circle-right"></i> Read more</a>
+                                                        </li>
+                                                        <li class="list-inline-item">
+                                                            <a href="#/story/{{story._id}}#comments"
+                                                               class="btn btn-secondary btn-sm"><i
+                                                                    class="fa fa-comment"></i> {{story.reviews.length}}
+                                                                Comments</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Blog post -->
+
+                                    <div class="pagination">
+                                        <button ng-click="model.showMore()" type="button"
+                                                class="btn btn-secondary btn-lg btn-block">Load More
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-show="model.isThisUser||!model.owner" class="tab-pane" id="myDealTab" aria-expanded="false">
+                                <h4 class="card-title">
+                                    My Deals
+                                </h4>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <!-- Product 2 -->
+                                        <div ng-repeat="deal in model.myDeals" class="card product-card mb-4">
+                                            <!-- Content -->
+                                            <div class="card-block p-3 pos-relative row">
+                                                <!-- Image content -->
+                                                <div class="col-md-4 mb-2 mb-md-0">
+                                                    <img class="rounded img-fluid" src="{{deal.image}}"
+                                                         alt="Card image cap">
+                                                </div>
+                                                <!-- Product details -->
+                                                <div class="col-md-8 d-flex flex-column align-items-start">
+                                                    <p class="text-muted text-uppercase text-xs mb-0"><span
+                                                            class="text-primary">Deal</span> / {{deal.spot}}</p>
+                                                    <h4 class="card-title mb-2">
+                                                        <a href="#/deal/{{deal._id}}"
+                                                           class="text-grey-dark">{{deal.title}}</a>
+                                                    </h4>
+                                                    <p class="font-weight-bold">${{deal.price}}</p>
+                                                    <!--<p class="pos-md-absolute pos-t pos-r mr-3 text-md-right"> <i class="fa fa-star text-primary"></i></p>-->
+                                                    <p class="text-muted text-xs">
+                                                        {{model.htmlToPlaintext(deal.description)}}</p>
+                                                    <div class="mt-auto">
+                                                        <a href="#/deal/{{deal._id}}" class="btn btn-primary btn-sm"><i
+                                                                class="fa fa-folder-open-o mr-2"></i> Details</a>
+                                                        <button ng-show="!model.owner||model.isThisUser"
+                                                                ng-click="model.cancelDeal(deal._id,deal.author)"
+                                                                class="btn btn-link btn-sm"><i
+                                                                class="fa fa-trash"></i> Delete this Deals
+                                                        </button>
+                                                        <!--<a href="#" class="btn btn-link btn-sm"><i class="fa fa-trash"></i> Delete this Deals</a>-->
+                                                        <p class="text-muted text-xs d-inline hidden-md-down">
+                                                            {{deal.likeUser.length}} people lke it</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pagination">
+                                            <button ng-click="model.showMore()" type="button"
+                                                    class="btn btn-secondary btn-lg btn-block">Load More
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-show="((model.isThisUser||!model.owner)&&model.isCurrentMerchant)||(!model.isThisUser&&model.owner&&model.isOwnerMerchant)" class="tab-pane" id="postDealTab" aria-expanded="false">
+                                <h4 class="card-title">
+                                    Posted Deals
+                                </h4>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <!-- Product 2 -->
+                                        <div ng-repeat="deal in model.postDeals" class="card product-card mb-4">
+                                            <!-- Content -->
+                                            <div class="card-block p-3 pos-relative row">
+                                                <!-- Image content -->
+                                                <div class="col-md-4 mb-2 mb-md-0">
+                                                    <img class="rounded img-fluid" src="{{deal.image}}"
+                                                         alt="Card image cap">
+                                                </div>
+                                                <!-- Product details -->
+                                                <div class="col-md-8 d-flex flex-column align-items-start">
+                                                    <p class="text-muted text-uppercase text-xs mb-0"><span
+                                                            class="text-primary">Deal</span> / {{deal.spot}}</p>
+                                                    <h4 class="card-title mb-2">
+                                                        <a href="#/deal/{{deal._id}}"
+                                                           class="text-grey-dark">{{deal.title}}</a>
+                                                    </h4>
+                                                    <p class="font-weight-bold">${{deal.price}}</p>
+                                                    <!--<p class="pos-md-absolute pos-t pos-r mr-3 text-md-right"> <i class="fa fa-star text-primary"></i></p>-->
+                                                    <p class="text-muted text-xs">
+                                                        {{model.htmlToPlaintext(deal.description)}}</p>
+                                                    <div class="mt-auto">
+                                                        <a href="#/deal/{{deal._id}}" class="btn btn-primary btn-sm"><i
+                                                                class="fa fa-folder-open-o mr-2"></i> Details</a>
+                                                        <button ng-show="!model.owner||model.isThisUser"
+                                                                ng-click="model.cancelDeal(deal._id,deal.author)"
+                                                                class="btn btn-link btn-sm"><i
+                                                                class="fa fa-trash"></i> Delete this Deals
+                                                        </button>
+                                                        <a ng-show="!model.owner||model.isThisUser"
+                                                           href="#/user/{{deal.author}}/deal/{{deal._id}}"
+                                                           class="btn btn-link btn-sm"><i
+                                                                class="fa fa-edit"></i> Edit this Deals</a>
+                                                        <!--<a href="#" class="btn btn-link btn-sm"><i class="fa fa-trash"></i> Delete this Deals</a>-->
+                                                        <p class="text-muted text-xs d-inline hidden-md-down">
+                                                            {{deal.likeUser.length}} people lke it</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pagination">
+                                            <button ng-click="model.showMore()" type="button"
+                                                    class="btn btn-secondary btn-lg btn-block">Load More
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="myReviewsTab" aria-expanded="false">
+                                <h4 class="card-title">
+                                    Reviews
+                                </h4>
+                                <hr class="my-4">
+                                <ul class="comments mt-3 list-unstyled">
+                                    <li ng-repeat="review in model.reviews" class="media mb-3 pos-relative">
+                                        <div ng-show="!model.owner||model.isThisUser"
+                                             class="z-index-2 pos-md-absolute pos-r text-md-right">
+                                            <p class="padding-left-15 my-0 text-xs">| <a
+                                                    ng-click="model.deleteMyReview(review._id, review.author)">Delete</a>
+                                            </p>
+                                        </div>
+                                        <div class="media-body">
+                                            <ul class="list-inline blog-meta text-muted">
+                                                <li class="list-inline-item"><i class="fa fa-calendar"></i>
+                                                    {{review.dateCreated|date:'MM/dd/yyyy'}}
+                                                </li>
+                                                <li class="list-inline-item"><i class="fa fa-user"></i> <a
+                                                        href="#/profile/{{review.author}}">{{review.authorName}}</a>
+                                                </li>
+                                            </ul>
+                                            <p class="mb-1 break-word">{{review.comments}}</p>
+                                            <p><i ng-repeat="a in model.getTimes(review.rate) track by $index"
+                                                  class="fa fa-star text-primary"></i>
+                                            </p>
+                                            <hr class="my-4">
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /container -->
+</div>

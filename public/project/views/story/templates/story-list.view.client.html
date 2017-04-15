@@ -1,0 +1,87 @@
+<div id="page-header">
+    <div class="container clearfix">
+        <h3 class="mb-0 float-md-left">
+            Stories List
+        </h3>
+        <!-- Page header breadcrumb -->
+        <nav class="breadcrumb float-md-right"><a class="breadcrumb-item" href="#/">Home</a> <span
+                class="breadcrumb-item active">Stories List</span></nav>
+    </div>
+</div>
+<div id="content" class="py-3 py-lg-6">
+    <div class="container">
+        <div class="row">
+            <!-- Products grid -->
+            <div class="col-sm-12">
+                <!-- Products filters -->
+                <div class="row">
+                    <div class="col-lg-6 mb-3 mb-lg-0">
+                        <form class="form-inline justify-content-lg-start text-sm">
+                            <label class="control-label mr-2">Search:</label>
+                            <input ng-model="keyword" type="text" class="form-control form-control-sm mr-lg-2"
+                                   placeholder="ie. Boston">
+                            <button ng-click="model.search(keyword)" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
+                        </form>
+                    </div>
+                </div>
+                <hr class="my-4">
+                <div class="col-md-12 blog-roll blog-list">
+                    <!-- Blog post -->
+                    <div ng-repeat="story in model.stories" class="row blog-post">
+                        <div class="col-md-1 date-md">
+                            <!-- Date desktop -->
+                            <div class="date-wrapper"><span class="date-m bg-primary">{{story.dateCreated|date:'LLLL'}}</span>
+                                <span class="date-d">{{story.dateCreated|date:'dd'}}</span></div>
+                            <!-- Meta details desktop -->
+                            <p class="text-muted"><i class="fa fa-user"></i> <a href="#/user/{{story.author}}">{{story.authorName}}</a></p>
+                        </div>
+                        <div class="col-md-11">
+                            <div class="tags"><a href="#/story" class="text-primary">story</a> / <a href="#/spot/{{story.geoNameId}}"
+                                                                                                    class="type">{{story.spot}}</a>
+                            </div>
+                            <h4 class="title media-heading">
+                                <a href="#/story/{{story._id}}">{{story.title}}</a>
+                            </h4>
+                            <!-- Meta details mobile -->
+                            <ul class="list-inline meta text-muted">
+                                <li class="list-inline-item"><i class="fa fa-calendar"></i>
+                                    {{story.dateCreated| date:'MM/dd/yyyy'}}
+                                </li>
+                                <li class="list-inline-item"><i class="fa fa-user"></i> <a
+                                        href="#/user/{{story.author}}">{{story.authorName}}</a></li>
+                            </ul>
+                            <div class="row">
+                                <div class="col-md-4 push-md-8">
+                                    <div class="blog-media">
+                                        <a href="#/story/{{story._id}}">
+                                            <img src="{{story.image}}" alt="Card image cap" class="img-fluid">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 pull-md-4">
+                                    <p class="break-word">{{model.htmlToPlaintext(story.description)}}</p>
+                                    <ul class="list-inline links">
+                                        <li class="list-inline-item">
+                                            <a href="#/story/{{story._id}}" class="btn btn-secondary btn-sm"><i
+                                                    class="fa fa-arrow-circle-right"></i> Read more</a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a href="#/story/{{story._id}}#comments" class="btn btn-secondary btn-sm"><i
+                                                    class="fa fa-comment"></i> {{story.reviews.length}} Comments</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Blog post -->
+
+                    <div class="pagination">
+                        <button ng-click="model.showMore()" type="button" class="btn btn-secondary btn-lg btn-block">Load More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

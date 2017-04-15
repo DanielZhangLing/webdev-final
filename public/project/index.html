@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ZipStory">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="assets/plugins/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
+    <link href="assets/css/theme-style.min.css" rel="stylesheet">
+    <link href="assets/css/colour-blue.css" id="colour-scheme" rel="stylesheet">
+    <link href="assets/css/custom-style.css" rel="stylesheet">
+    <link href="assets/css/textAngular.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/retina.js/1.3.0/retina.min.js"></script>
+
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script
+            src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+            crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgldfe8VG-R1hYSSkU8ufnbjg4LdWdkrk&libraries=places"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <!-- Tether 1.1.1 via CDN, needed for Bootstrap Tooltips & Popovers -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.1.1/js/tether.min.js"></script>
+
+    <!-- Bootstrap 4.0.0-alpha.6 JS via CDN -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+
+    <script src="assets/js/textAngular-rangy.min.js"></script>
+    <script src="assets/js/textAngular-sanitize.min.js"></script>
+    <script src="assets/js/textAngular.min.js"></script>
+    <script src="app.js"></script>
+    <script src="config.js"></script>
+
+    <script src="assets/directives/showTab.js"></script>
+
+    <script src="services/user.service.client.js"></script>
+    <script src="services/spot.service.client.js"></script>
+    <script src="services/story.service.client.js"></script>
+    <script src="services/deal.service.client.js"></script>
+    <script src="services/review.service.client.js"></script>
+
+    <script src="views/user/controllers/login.controller.client.js"></script>
+    <script src="views/user/controllers/register.controller.client.js"></script>
+    <script src="views/user/controllers/profile.controller.client.js"></script>
+    <script src="views/spot/controllers/spot-list.controller.client.js"></script>
+    <script src="views/spot/controllers/spot-detail.controller.client.js"></script>
+    <script src="views/story/controllers/story-add.controller.client.js"></script>
+    <script src="views/story/controllers/story-detail.controller.client.js"></script>
+    <script src="views/story/controllers/story-list.controller.client.js"></script>
+    <script src="views/story/controllers/story-edit.controller.client.js"></script>
+    <script src="views/deal/controllers/deal-add.controller.client.js"></script>
+    <script src="views/deal/controllers/deal-detail.controller.client.js"></script>
+    <script src="views/deal/controllers/deal-list.controller.client.js"></script>
+    <script src="views/deal/controllers/deal-edit.controller.client.js"></script>
+
+
+
+    <title>ZipStory</title>
+</head>
+<body>
+<div id="header">
+    <div class="header-upper">
+        <div class="header-inner container">
+            <div class="header-block-flex flex-first mr-auto">
+                <nav class="nav nav-sm header-block-flex">
+                    <a class="nav-link hidden-md-up" href="#/profile"><i class="fa fa-user"></i></a>
+                    <a class="nav-link text-xs text-uppercase hidden-sm-down" href="#/register">Sign
+                        Up</a>
+                    <a class="nav-link text-xs text-uppercase hidden-sm-down" href="#/login">Login</a>
+                </nav>
+            </div>
+            <!--social media icons-->
+            <div class="nav nav-icons header-block flex-last">
+                <!--@todo: replace with company social media details-->
+                <a href="#" class="nav-link"> <i class="fa fa-twitter-square icon-1x"></i> <span
+                        class="sr-only">Twitter</span> </a>
+                <a href="/auth/facebook" class="nav-link"> <i class="fa fa-facebook-square icon-1x"></i> <span
+                        class="sr-only">Facebook</span> </a>
+                <a href="#" class="nav-link"> <i class="fa fa-linkedin-square icon-1x"></i> <span class="sr-only">Linkedin</span>
+                </a>
+                <a href="#" class="nav-link"> <i class="fa fa-google-plus-square icon-1x"></i> <span class="sr-only">Google plus</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div data-toggle="sticky">
+        <div class="header-search collapse" id="search">
+            <form class="search-form container">
+                <input ng-model="headKeyword" type="text" name="search" class="form-control search" placeholder="Search">
+                <a href="#/spot/search/{{headKeyword}}">
+                    <button type="button" class="btn btn-link"><span class="sr-only">Search </span><i
+                            class="fa fa-search fa-flip-horizontal search-icon"></i></button>
+                </a>
+                <button type="button" class="btn btn-link close-btn" data-toggle="search-form-close"><span
+                        class="sr-only">Close </span><i class="fa fa-times search-icon"></i></button>
+            </form>
+        </div>
+        <div class="header">
+            <!-- all direct children of the .header-inner element will be vertically aligned with each other you can override all the behaviours using the flexbox utilities (flexbox.htm) All elements with .header-brand & .header-block-flex wrappers will automatically be aligned inline & vertically using flexbox, this can be overridden using the flexbox utilities (flexbox.htm) Use .header-block to stack elements within on small screen & "float" on larger screens use .flex-first or/and .flex-last classes to make an element show first or last within .header-inner or .headr-block elements -->
+            <div class="header-inner container">
+                <!--branding/logo -->
+                <div class="header-brand flex-first">
+                    <a class="header-brand-text" href="#/login" title="Home">
+                        <h1>
+                            <span>Zip</span>Story<span>.</span>
+                        </h1>
+                    </a>
+                    <div class="header-divider hidden-md-down"></div>
+                    <div class="header-slogan hidden-md-down">Original Travel Community</div>
+                </div>
+                <!-- other header content -->
+                <div class="header-block flex-last">
+
+                    <!--Search trigger -->
+                    <a href="" class="btn btn-icon btn-link header-btn float-right flex-last" data-toggle="search-form"
+                       data-target=".header-search"><i class="fa fa-search fa-flip-horizontal search-icon"></i></a>
+
+                    <!-- mobile collapse menu button - data-toggle="collapse" = default BS menu - data-toggle="jpanel-menu" = jPanel Menu - data-toggle="overlay" = Overlay Menu -->
+                    <a href="#top" class="btn btn-link btn-icon header-btn float-right hidden-lg-up"
+                       data-toggle="jpanel-menu" data-target=".navbar-main" data-direction="right"> <i
+                            class="fa fa-bars"></i> </a>
+                </div>
+
+                <div class="navbar navbar-toggleable-md">
+                    <!--everything within this div is collapsed on mobile-->
+                    <div class="navbar-main collapse">
+                        <!--main navigation-->
+                        <ul class="nav navbar-nav float-lg-right dropdown-effect-fade">
+                            <!-- Homepages -->
+                            <li class="nav-item">
+                                <a href="#/" class="nav-link" id="indexs-drop"> <i
+                                        class="fa fa-home nav-link-icon"></i> <span class="hidden-xs-up">Home</span>
+                                </a>
+                            </li>
+
+                            <!-- Pages -->
+                            <li class="nav-item">
+                                <a href="#/profile" class="nav-link" id="profile-drop">Profiles</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#/spot" class="nav-link" id="spots-drop">Spots</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#/story" class="nav-link" id="stories-drop">Stories</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#/deal" class="nav-link " id="deals-drop">Deals</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <!--/.navbar-collapse -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-view></div>
+<footer id="footer" class="p-0">
+    <div class="container pt-6 pb-5">
+        <div class="row">
+            <div class="col-md-6">
+                <h4 class="text-uppercase text-white">
+                    Contact Us
+                </h4>
+                <address>
+                    <ul class="list-unstyled">
+                        <li>
+                            <abbr title="Phone"><i class="fa fa-phone fa-fw"></i></abbr>
+                            617-959-2979
+                        </li>
+                        <li>
+                            <abbr title="Email"><i class="fa fa-envelope fa-fw"></i></abbr>
+                            zhang.ling1@husky.neu.edu
+                        </li>
+                        <li>
+                            <abbr title="Address"><i class="fa fa-home fa-fw"></i></abbr>
+                            Northeastern University
+                        </li>
+                    </ul>
+                </address>
+            </div>
+            <div class="col-md-6">
+                <h4 class="text-uppercase text-white">
+                    About Us
+                </h4>
+                <p>Making your life a story that never end! We help you zip your stories and your business.</p>
+            </div>
+        </div>
+
+    </div>
+    <hr class="my-0 hr-blank op-2"/>
+</footer>
+<script src="assets/js/script.min.js"></script>
+</body>
+</html>
