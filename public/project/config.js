@@ -32,6 +32,9 @@
             .when("/", {
                 templateUrl: 'views/home.html'
             })
+            .when("/home", {
+                templateUrl: 'views/home.html'
+            })
             .when("default", {
                 templateUrl: 'views/user/templates/login.view.client.html',
                 controller: "LoginController",
