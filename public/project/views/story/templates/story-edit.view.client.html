@@ -25,8 +25,15 @@
                         <input disabled ng-model="model.story.spot" type="text" class="noBorder form-control" placeholder="Spot">
 
                         <hr class="my-3">
-                        <textarea ng-model="model.story.description" class="form-control noBorder" rows="10" placeholder="Passage..."></textarea>
-                        <!--<p class="text-muted text-sm">Acsi facilisis fere quibus quidne. Distineo elit et illum in incassum lenis magna typicus vel. Damnum ideo iriure letalis minim nulla.</p>-->
+                        <div ng-model="model.story.description" placeholder="Passage..." class="form-control noBorder"
+                             text-angular
+                             ta-toolbar="[
+      ['h1',  'h3',  'h5', 'p'],
+      ['bold', 'italics', 'underline',  'ul', 'ol'],
+      ['justifyLeft', 'justifyCenter', 'justifyRight'],
+      ['html', 'insertImage','insertLink', 'insertVideo']
+  ]">
+                        </div>                        <!--<p class="text-muted text-sm">Acsi facilisis fere quibus quidne. Distineo elit et illum in incassum lenis magna typicus vel. Damnum ideo iriure letalis minim nulla.</p>-->
                         <hr class="my-3 mb-5">
                         <button ng-click="model.updateStory(model.storyId, model.story)" class="btn btn-primary"><i class="fa fa-rss"></i> Update</button>
                     </div>
