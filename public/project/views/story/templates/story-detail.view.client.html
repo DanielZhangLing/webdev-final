@@ -1,3 +1,5 @@
+<div ng-show="model.error" class="alert alert-danger" role="alert"><strong>Error:</strong> {{model.error}}</div>
+<div ng-show="model.message" class="alert alert-success" role="alert"><strong>Message:</strong> {{model.message}}</div>
 <div id="page-header">
     <div class="container clearfix">
         <h3 class="mb-0 float-md-left">
@@ -9,7 +11,6 @@
                 class="breadcrumb-item active">Story Detail</span></nav>
     </div>
 </div>
-<div ng-show="model.error" class="alert alert-danger" role="alert"><strong>Error:</strong> {{model.error}}</div>
 <div id="content" class="pt-3 pt-lg-6 pb-lg-0">
     <div class="container">
         <!-- Product view -->
