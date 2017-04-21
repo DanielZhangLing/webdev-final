@@ -1,8 +1,5 @@
 # web-dev-template
 
-1. git clone https://github.com/jannunzi/web-dev-template.git
-1. cd web-dev-template
-1. npm install
-1. mongod
-1. node server.js
-1. browse to localhost:3000
+1. visit final project at http://webdev-final-lingzhang.herokuapp.com/project/
+2. watch video at https://youtu.be/8Jst6gKMgSE
+3. send advice to zhang.ling1@husky.neu.edu
