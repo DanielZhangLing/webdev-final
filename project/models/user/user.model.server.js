@@ -337,6 +337,7 @@ module.exports = function () {
                     d.resolve(status);
                 }
             });
+        return d.promise;
     }
 
     function updateUser(userId, user) {
